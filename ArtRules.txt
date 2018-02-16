@@ -1,0 +1,33 @@
+** ART RULES **
+
+1. ) Can only open the project using Unity 2017.1.1f1 or Unity 2017.1.1f3. NO EXCEPTIONS.
+
+2. ) EDITING BINARY FILES
+	Binary files are any non text based file types. Example : .FBXs .MA .UNITY etc etc. These can only be edited by one person at a time.
+	If you need to edit a unity scene file to import models or adjust parameters in scripts ( which you shouldn't!! ) then you need to inform the art channel immediately that you are checking this file out. And when you push that file, because then it's not longer checked out and anyone else can edit it.
+
+	I reccomend that if you are importing models to create new layouts or do lighting for a specific scene layout, that you duplicate the current Build Test scene, rename and do all your edits in that duplicate scene. And then save all of your changes to the layout prefab. 
+
+3. ) TOUCHING CODE.
+	DON'T? If you didn't make it, don't touch it. That includes the parameters in the editor. Unless you are testing, just be sure that after testing you don't push the scene because then those parameter changes also get saved and pushed, which is a problem.
+
+4. ) PROJECT SETTINGS & PLAYER SETTINGS & BUILD SETTINGS
+	Do not push these. They may pop up in your changes when checking your git status. Do not add those to your commit. 
+
+
+** BRANCHING ON GIT **
+
+1. ) Create a local branch with proper naming conventions.
+
+2. ) Do all your work like normal, abiding by the above rules.
+
+3. ) When you finish git add all your necessary files and git commit -m "This is a detailed message of shit I changed. - Initials ". git push like normal.
+	One git push can include multiple git commits. Treat git commits as save states. Only push once, please, for the love of god.
+
+4. ) When you are completely finished with the task or the deadline comes, whichever it is. I only judge harshly. 
+git push -u origin name-of-local-branch.
+
+5. ) Then go to bitbucket and make a pull request. Comment appropriately, name appropriately. Assign Mark and Amanda as reviewers. Please.
+	Make sure to check close parent branch upon merging checkbox.
+
+6. ) Make sure that when you do git fetch --all -p
