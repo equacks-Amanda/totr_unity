@@ -1,3 +1,13 @@
+** WORKING WITH BINARIES **
+
+1. ) If you need to edit a scene:
+	1a. ) duplicate the scene call it ART_TaskImplemented
+	1b. ) BuildSetUp is the scene where the majority of the game happens.
+	1c. ) WarmUp is the scene where the players first spawn in.
+2. ) If you need to edit a prefab:
+	1a. ) duplicate the prefab call it ART_PrefabName
+	1b. ) do all your changes to the new prefab.
+
 ** ART RULES **
 
 1. ) Can only open the project using Unity 2017.1.1f1 or Unity 2017.1.1f3. NO EXCEPTIONS.
