@@ -27,7 +27,7 @@
 4. ) When you are completely finished with the task or the deadline comes, whichever it is. I only judge harshly. 
 git push -u origin name-of-local-branch.
 
-5. ) Then go to bitbucket and make a pull request. Comment appropriately, name appropriately. Assign Mark and Amanda as reviewers. Please.
+5. ) Then go to Github and make a pull request. Comment appropriately, name appropriately. Assign Mark and Amanda as reviewers. Please.
 	Make sure to check close parent branch upon merging checkbox.
 
 6. ) Make sure that when you do git fetch --all -p
