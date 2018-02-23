@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour{
     private Color col_originalColor;        // Color of capsule.
 	protected Maestro maestro;				// Reference to Maestro singleton.
 
+	private Animator animator;
 
 
 	private void Move() {
@@ -58,6 +59,9 @@ public class PlayerController : MonoBehaviour{
         Vector3 v3_moveDir = new Vector3(f_inputX, 0, f_inputZ).normalized;
 		Vector3 v3_aimDir = new Vector3(f_aimInputX, 0, f_aimInputZ).normalized;
 
+		animator.SetFloat ("runSpeed", f_inputZ);
+		animator.SetFloat ("runSpeed", f_inputX);
+
 		if (v3_aimDir.magnitude > 0) {
 			transform.rotation = Quaternion.LookRotation(v3_aimDir);
 		}
@@ -68,6 +72,7 @@ public class PlayerController : MonoBehaviour{
 		else {
 			GetComponent<Rigidbody>().velocity = (v3_moveDir * Constants.PlayerStats.C_MovementSpeed) * f_canMove;
 		}
+
 	}
 
 	public void Freeze() {
@@ -201,6 +206,7 @@ public class PlayerController : MonoBehaviour{
 
     void Awake() {
         p_player = ReInput.players.GetPlayer(i_playerNumber);
+		animator = GetComponentInChildren <Animator>();
     }
 
     void Start() {
@@ -259,6 +265,7 @@ public class PlayerController : MonoBehaviour{
                     f_nextMagicMissile = 0;
 				    GameObject go_spell = Instantiate(go_magicMissileShot, t_spellSpawn.position, t_spellSpawn.rotation);
 				    SpellController sc_firing = go_spell.GetComponent<SpellController>();
+					animator.SetTrigger ("attackTrigger");
                     sc_firing.e_color = e_Color;
 				    go_spell.transform.localScale = new Vector3(f_projectileSize, f_projectileSize, f_projectileSize);
 				    go_spell.GetComponent<Rigidbody>().velocity = transform.forward * Constants.SpellStats.C_MagicMissileSpeed;
