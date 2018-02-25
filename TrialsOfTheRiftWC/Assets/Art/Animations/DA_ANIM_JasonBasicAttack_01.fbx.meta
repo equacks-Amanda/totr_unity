@@ -263,7 +263,7 @@ ModelImporter:
     - serializedVersion: 16
       name: DA_ANIM_JasonBasicAttack02
       takeName: Take 001
-      firstFrame: 97
+      firstFrame: 110
       lastFrame: 125
       wrapMode: 0
       orientationOffsetY: 0
