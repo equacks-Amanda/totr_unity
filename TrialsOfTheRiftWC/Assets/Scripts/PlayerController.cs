@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour{
             //this value right here is where the flag is being dropped from the bug
             //tried to change it to the transform of the player, didn't really work, maybe
             //try getting player transform, but setting y to 0
-            //go_flagObj.transform.localPosition = new Vector3(0.0f, -1.5f, 0.0f);	// this is relative to t_flagPos
+            go_flagObj.transform.localPosition = new Vector3(0.0f, -1.5f, 0.0f);	// this is relative to t_flagPos
 
             go_flagObj.GetComponent<FlagController>().DropFlag();
 			go_flagObj = null;
@@ -125,11 +125,11 @@ public class PlayerController : MonoBehaviour{
  
 		if(SceneManager.GetActiveScene().name != "WarmUp") {
             Debug.Log("Increase Volatility by 2.5%");
-          //  RiftController.Instance.IncreaseVolatility(Constants.RiftStats.C_VolatilityIncrease_PlayerDeath);
+            RiftController.Instance.IncreaseVolatility(Constants.RiftStats.C_VolatilityIncrease_PlayerDeath);
         }
 
 
-//		maestro.PlayPlayerDie();
+		maestro.PlayPlayerDie();
 
         go_playerCapsule.SetActive(false);
 		go_playerWisp.SetActive(true);
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour{
     private void PlayerRespawn() {
 		isWisp = false;
 		animator.SetBool ("whispBool" , false);
-//		maestro.PlayPlayerSpawn();
+		maestro.PlayPlayerSpawn();
         go_playerCapsule.SetActive(true);
         go_playerWisp.SetActive(false);
         f_playerHealth = Constants.PlayerStats.C_MaxHealth;
@@ -156,7 +156,6 @@ public class PlayerController : MonoBehaviour{
             //Damage flicker goes here.
             DamageVisualOn();
             phc_hud.ShakeUI();
-			//animator.SetTrigger ("hitTrigger");
 			if (f_playerHealth <= 0.0f) {
                 PlayerDeath();
 
@@ -275,7 +274,7 @@ public class PlayerController : MonoBehaviour{
                     f_mmCharge += p_player.GetButtonTimePressed("MagicMissile");
                 }
                 if (p_player.GetButton("MagicMissile")) {
-					//maestro.PlayMagicMissileShoot();
+					maestro.PlayMagicMissileShoot();
 					animator.SetTrigger("attackTrigger");
                     f_nextMagicMissile = 0;
 				    GameObject go_spell = Instantiate(go_magicMissileShot, t_spellSpawn.position, t_spellSpawn.rotation);
@@ -291,7 +290,7 @@ public class PlayerController : MonoBehaviour{
 			}
             // Charged Magic Missile (Release)
             if (p_player.GetButtonUp("MagicMissile") && f_nextMmCharge > Constants.SpellStats.C_MagicMissileChargeCooldown) {
-				//maestro.PlayMagicMissileShoot();
+				maestro.PlayMagicMissileShoot();
                 f_nextMmCharge = 0;
 				GameObject go_spell = Instantiate(go_magicMissileShot, t_spellSpawn.position, t_spellSpawn.rotation);
 				SpellController sc_firing = go_spell.GetComponent<SpellController>();
@@ -306,11 +305,11 @@ public class PlayerController : MonoBehaviour{
             if (f_nextWind > Constants.SpellStats.C_WindCooldown && f_nextCast > Constants.SpellStats.C_NextSpellDelay) {   // checks for fire button and if time delay has passed
                 if (p_player.GetButtonTimePressed("WindSpell") != 0) {
                     f_windCharge += p_player.GetButtonTimePressed("WindSpell");
-					//animator.SetTrigger ("windchargeTrigger");
+					animator.SetTrigger ("windchargeTrigger");
 					animator.SetFloat("windCharge" , f_windCharge);
                 }
                 if (p_player.GetButtonUp("WindSpell")) {
-					//maestro.PlayWindShoot();
+					maestro.PlayWindShoot();
 					animator.SetTrigger("windspellTrigger");
                     f_nextWind = 0;
 				    f_nextCast = 0;
@@ -333,7 +332,7 @@ public class PlayerController : MonoBehaviour{
             // Ice Spell
             if (f_nextIce > Constants.SpellStats.C_IceCooldown && f_nextCast > Constants.SpellStats.C_NextSpellDelay) {   // checks for fire button and if time delay has passed
                 if (p_player.GetButtonDown("IceSpell")) {
-					//maestro.PlayIceShoot();
+					maestro.PlayIceShoot();
                     b_iceboltMode = true;
                     f_nextIce = 0;
                     f_nextCast = 0;
@@ -355,7 +354,7 @@ public class PlayerController : MonoBehaviour{
 					animator.SetFloat ("gooCharge", f_electricCharge);
                 }
                 if (p_player.GetButtonUp("ElectricitySpell")) {
-//					maestro.PlayElectricShoot();
+					maestro.PlayElectricShoot();
 					animator.SetTrigger("goospellTrigger");
                     f_nextElectric = 0;
 				    f_nextCast = 0;
@@ -435,16 +434,6 @@ public class PlayerController : MonoBehaviour{
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
         }
 
-		/*
-		else if (collision.gameObject.name == "Wind(Clone)") {
-			animator.SetTrigger ("windTrigger");
-		}
 
-
-		else if (collision.gameObject.name == "MagicMissile(Clone)"){
-			animator.SetTrigger ("hitTrigger");
-    	}
-
-	*/
 }
 }
