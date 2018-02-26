@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-
-guid: 9aac0deeaf8ab4f178ad00b18887fb17
-timeCreated: 1519578729
-
+guid: 1912ab2c1106746cdaa044a45be88320
+timeCreated: 1519578762
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: tray
-    400000: //RootNode
-    400002: tray
-    2300000: tray
-    3300000: tray
-    4300000: tray
+    100000: Hat3_final
+    100002: Hat3_final1
+    100004: Sash
+    100006: transform1
+    100008: transform2
+    100010: //RootNode
+    400000: Hat3_final
+    400002: Hat3_final1
+    400004: Sash
+    400006: transform1
+    400008: transform2
+    400010: //RootNode
+    2300000: Hat3_final1
+    3300000: Hat3_final1
+    4300000: Hat3_final1
     9500000: //RootNode
   materials:
     importMaterials: 1

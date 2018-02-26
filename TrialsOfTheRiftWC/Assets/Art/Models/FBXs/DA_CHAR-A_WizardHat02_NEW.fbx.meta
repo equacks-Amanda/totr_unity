@@ -1,19 +1,15 @@
 fileFormatVersion: 2
-
-guid: 9aac0deeaf8ab4f178ad00b18887fb17
-timeCreated: 1519578729
-
+guid: 514fd6db2470d4291b70e24eed6c026f
+timeCreated: 1519578762
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
-    100002: tray
     400000: //RootNode
-    400002: tray
-    2300000: tray
-    3300000: tray
-    4300000: tray
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Hat02
     9500000: //RootNode
   materials:
     importMaterials: 1

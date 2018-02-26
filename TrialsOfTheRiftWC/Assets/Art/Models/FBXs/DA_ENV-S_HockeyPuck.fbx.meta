@@ -1,19 +1,15 @@
 fileFormatVersion: 2
-
-guid: 9aac0deeaf8ab4f178ad00b18887fb17
-timeCreated: 1519578729
-
+guid: 119dc5f873a624e79ab1955b8299b2fd
+timeCreated: 1519578352
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
-    100002: tray
     400000: //RootNode
-    400002: tray
-    2300000: tray
-    3300000: tray
-    4300000: tray
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Hockey_Puck
     9500000: //RootNode
   materials:
     importMaterials: 1

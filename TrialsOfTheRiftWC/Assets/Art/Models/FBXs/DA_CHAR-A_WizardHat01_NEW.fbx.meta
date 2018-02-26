@@ -1,19 +1,29 @@
 fileFormatVersion: 2
-
-guid: 9aac0deeaf8ab4f178ad00b18887fb17
-timeCreated: 1519578729
-
+guid: 7c1efaf3515f449db88ab482bb65309c
+timeCreated: 1519578762
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: tray
-    400000: //RootNode
-    400002: tray
-    2300000: tray
-    3300000: tray
-    4300000: tray
+    100000: Hat01
+    100002: Hat01_final1
+    100004: polySurface1
+    100006: polySurface2
+    100008: transform3
+    100010: transform4
+    100012: transform5
+    100014: //RootNode
+    400000: Hat01
+    400002: Hat01_final1
+    400004: polySurface1
+    400006: polySurface2
+    400008: transform3
+    400010: transform4
+    400012: transform5
+    400014: //RootNode
+    2300000: Hat01
+    3300000: Hat01
+    4300000: Hat01
     9500000: //RootNode
   materials:
     importMaterials: 1
