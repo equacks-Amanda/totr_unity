@@ -38,10 +38,10 @@ public class HotPotatoController : MonoBehaviour {
 
     public void ResetPotatoPosition() {
         if (e_color == Constants.Global.Color.RED) {
-            transform.position = Constants.ObjectiveStats.C_RedPotatoSpawn;
+            transform.localPosition = Constants.ObjectiveStats.C_RedPotatoSpawn;
         }
         else {
-            transform.position = Constants.ObjectiveStats.C_BluePotatoSpawn;
+            transform.localPosition = Constants.ObjectiveStats.C_BluePotatoSpawn;
         }
     }
 
@@ -83,7 +83,7 @@ public class HotPotatoController : MonoBehaviour {
     // Potato destroys itself, spawns enemies, and resets to original spawn position
     public void SelfDestruct() {
         // Spawn 3 enemies at current location
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < Constants.ObjectiveStats.C_EnemySpawnAmount; i++) {
             riftController.CircularEnemySpawn(transform.position, e_startSide);
         }
         ResetPotatoPosition();
