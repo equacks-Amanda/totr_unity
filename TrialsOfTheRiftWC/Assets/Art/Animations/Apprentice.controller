@@ -400,9 +400,9 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: windspellTrigger
-    m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: windCharge
+    m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102023078200317400}
   m_Solo: 0
