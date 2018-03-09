@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 042e20448f63e46a4b4ac3505963ff0d
-timeCreated: 1519579458
+guid: 0bb7952f0ca54c3448b866ed7574c72e
+timeCreated: 1519738573
 licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 21
   fileIDToRecycleName:
     100000: Apprentice
     100002: Apprentice 1
@@ -397,22 +397,10 @@ ModelImporter:
     13700000: Apprentice 1
     13700002: Outfit_02
     13700004: Toga
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Outfit1_LowLowPoly_1
-    second: {fileID: 2100000, guid: 021237c27999546c18643382ba463ee8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: b4ea90239b4a8458b9e8b79061759d27, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -425,7 +413,6 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

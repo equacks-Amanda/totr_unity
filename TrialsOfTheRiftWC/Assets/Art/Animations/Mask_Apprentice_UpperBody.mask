@@ -65,7 +65,7 @@ AvatarMask:
   - m_Path: Apprentice_Rig/Reference/Hip_jB/R_Thigh_jB/R_Flap_ctrl
     m_Weight: 0
   - m_Path: Apprentice_Rig/Reference/Hip_jB/Spine_jB_1
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Apprentice_Rig/Reference/Hip_jB/Spine_jB_1/Spine_jB_2
     m_Weight: 1
   - m_Path: Apprentice_Rig/Reference/Hip_jB/Spine_jB_1/Spine_jB_2/Spine_jB_3

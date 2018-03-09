@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4917483751051920}
   - component: {fileID: 198269704919018540}
   - component: {fileID: 199386060192551610}
-  - component: {fileID: 114224126348181014}
   m_Layer: 14
   m_Name: Cast Particle
   m_TagString: Untagged
@@ -74,7 +73,7 @@ Transform:
   m_GameObject: {fileID: 1934989086911316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.38, y: 0, z: 0.08}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4917483751051920}
   - {fileID: 4641835888259680}
@@ -170,17 +169,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b37c74aa329aef34c98a5b85f1d1ee27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114224126348181014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1864508934997788}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7a21617d0dab8e46be3ecc760553a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135179796981256130

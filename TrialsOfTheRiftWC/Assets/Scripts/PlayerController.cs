@@ -22,10 +22,9 @@ public class PlayerController : MonoBehaviour{
 	public GameObject go_iceShot;           // ice spell object
 	public GameObject go_electricShot;      // ice spell object
     //[SerializeField]private PlayerHUDController phc_hud;    //HUD object  
-    [SerializeField] private PauseController pauc_pause;     //For Pausing.
-    [SerializeField] private GameObject go_deathOrbPrefab;
+    [SerializeField]private PauseController pauc_pause;     //For Pausing.
 
-    public bool isWisp = false;
+	public bool isWisp = false;
 
     private Player p_player;                // rewired player for input control
     private float f_nextWind;				// time next wind spell can be cast
@@ -46,32 +45,23 @@ public class PlayerController : MonoBehaviour{
 	private float f_playerHealth;           // player's current health value
     public float f_projectileSize;          // size of player projectiles.
     //private Color col_originalColor;        // Color of capsule.
-	private Maestro maestro;				// Reference to Maestro singleton.
+	protected Maestro maestro;				// Reference to Maestro singleton.
 
-	[SerializeField] private Animator anim;
+	public Animator animator;
 
-	private bool b_stepOk;
-	private float f_stepDelay = 0.4f;
 
-    // Getters
-    public Animator Animator {
-        get { return anim; }
-    }
 
-    private void Move() {
+	private void Move() {
         float f_inputX = p_player.GetAxis("MoveHorizontal");
         float f_inputZ = p_player.GetAxis("MoveVertical");
         float f_aimInputX = p_player.GetAxis("AimHorizontal");
         float f_aimInputZ = p_player.GetAxis("AimVertical");
-		//float f_lookDirection;
 
         Vector3 v3_moveDir = new Vector3(f_inputX, 0, f_inputZ).normalized;
 		Vector3 v3_aimDir = new Vector3(f_aimInputX, 0, f_aimInputZ).normalized;
-		//f_lookDirection = f_inputX + f_aimInputX;
 
-		anim.SetFloat ("runSpeed", v3_moveDir.magnitude);
-		anim.SetFloat ("lookDirection", v3_aimDir.magnitude);
-
+		animator.SetFloat ("runSpeed", f_inputZ);
+		animator.SetFloat ("runSpeed", f_inputX);
 
 		if (v3_aimDir.magnitude > 0) {
 			transform.rotation = Quaternion.LookRotation(v3_aimDir);
@@ -82,26 +72,20 @@ public class PlayerController : MonoBehaviour{
 		}
 		else {
 			GetComponent<Rigidbody>().velocity = (v3_moveDir * Constants.PlayerStats.C_MovementSpeed) * f_canMove;
-			if(v3_moveDir.magnitude > 0 && b_stepOk){
-				b_stepOk = false;
-				maestro.PlayPlayerFootstep();
-				maestro.PlayPlayerClothing();
-			}
-			
 		}
 	}
 
 	public void Freeze() {
 		f_canMove = 0;
 		DropFlag();
-		anim.SetTrigger ("freezeTrigger");
-		anim.SetBool ("freezeBool", true);
+		animator.SetTrigger ("freezeTrigger");
+		animator.SetBool ("freezeBool", false);
 		Invoke("Unfreeze", Constants.SpellStats.C_IceFreezeTime);
 	}
 
 	private void Unfreeze() {
 		f_canMove = 1;
-		anim.SetBool ("freezeBool", false);
+		animator.SetBool ("freezeBool", true);
     }
 
 	public void Pickup(GameObject flag) {
@@ -131,7 +115,6 @@ public class PlayerController : MonoBehaviour{
 
     private void PlayerDeath()
     {
-		maestro.PlayAnnouncementWispGeneric();
         DropFlag();
         TurnOff();
         isWisp = true;
@@ -158,10 +141,8 @@ public class PlayerController : MonoBehaviour{
         f_nextIce = Time.time;
     }
 
-	public void TakeDamage(float damage, Constants.Global.DamageType d) {
+	public void TakeDamage(float damage) {
 		if (!isWisp) {
-			maestro.PlayAnnouncmentPlayerHit(i_playerNumber,d);
-			maestro.PlayPlayerHit();
 			f_playerHealth -= damage;
             //Damage flicker goes here.
             DamageVisualOn();
@@ -231,8 +212,6 @@ public class PlayerController : MonoBehaviour{
     //}
 
     void Start() {
-		b_stepOk = true;
-		InvokeRepeating("StepDelay",f_stepDelay,f_stepDelay);
         p_player = ReInput.players.GetPlayer(i_playerNumber);
         f_playerHealth = Constants.PlayerStats.C_MaxHealth;
         //col_originalColor = go_playerCapsule.GetComponent<MeshRenderer>().material.color;
@@ -246,6 +225,8 @@ public class PlayerController : MonoBehaviour{
         b_iceboltMode = false;
 		
 		maestro = Maestro.Instance;     // reference to Rift singleton
+
+		animator = GetComponentInChildren <Animator>();
 
 		if (transform.position.x > 0)
 			e_Side = Constants.Global.Side.RIGHT;
@@ -286,7 +267,7 @@ public class PlayerController : MonoBehaviour{
                 }
                 if (p_player.GetButton("MagicMissile")) {
 					maestro.PlayMagicMissileShoot();
-					anim.SetTrigger ("attackTrigger");
+					animator.SetTrigger ("attackTrigger");
                     f_nextMagicMissile = 0;
 				    GameObject go_spell = Instantiate(go_magicMissileShot, t_spellSpawn.position, t_spellSpawn.rotation);
 				    SpellController sc_firing = go_spell.GetComponent<SpellController>();
@@ -315,12 +296,12 @@ public class PlayerController : MonoBehaviour{
             if (f_nextWind > Constants.SpellStats.C_WindCooldown && f_nextCast > Constants.SpellStats.C_NextSpellDelay) {   // checks for fire button and if time delay has passed
                 if (p_player.GetButtonTimePressed("WindSpell") != 0) {
                     f_windCharge += p_player.GetButtonTimePressed("WindSpell");
-					anim.SetTrigger ("windChargeTrigger");
-					anim.SetFloat ("windCharge", f_windCharge);
+					animator.SetTrigger ("windChargeTrigger");
+					animator.SetFloat ("windCharge", f_windCharge);
                 }
                 if (p_player.GetButtonUp("WindSpell")) {
 					maestro.PlayWindShoot();
-					anim.SetTrigger("windSpellTrigger");
+					animator.SetTrigger("windSpellTrigger");
                     f_nextWind = 0;
 				    f_nextCast = 0;
                     for (int i = -30; i <= 30; i += 30) {
@@ -335,7 +316,7 @@ public class PlayerController : MonoBehaviour{
                         sc_firing.pc_owner = this;
                     }
                     f_windCharge = 0;
-					anim.SetFloat ("windCharge", f_windCharge);
+					animator.SetFloat ("windCharge", f_windCharge);
 				} 
                 
 			}
@@ -361,11 +342,11 @@ public class PlayerController : MonoBehaviour{
             if (f_nextElectric > Constants.SpellStats.C_ElectricCooldown && f_nextCast > Constants.SpellStats.C_NextSpellDelay) {   // checks for fire button and if time delay has passed
                 if (p_player.GetButtonTimePressed("ElectricitySpell") != 0) {
                     f_electricCharge += p_player.GetButtonTimePressed("ElectricitySpell");
-					anim.SetFloat ("gooCharge", f_electricCharge);
+					animator.SetFloat ("gooCharge", f_electricCharge);
                 }
                 if (p_player.GetButtonUp("ElectricitySpell")) {
 					maestro.PlayElectricShoot();
-					anim.SetTrigger ("goospellTrigger");
+					animator.SetTrigger ("goospellTrigger");
                     f_nextElectric = 0;
 				    f_nextCast = 0;
 				    GameObject go_spell = Instantiate(go_electricShot, t_spellSpawn.position, t_spellSpawn.rotation);
@@ -376,7 +357,7 @@ public class PlayerController : MonoBehaviour{
                     sc_firing.Charge(f_electricCharge);
                     f_electricCharge = 0;
                     sc_firing.pc_owner = this;
-					anim.SetFloat ("gooCharge", f_electricCharge);
+					animator.SetFloat ("gooCharge", f_electricCharge);
                 }
                 
 			}
@@ -423,27 +404,17 @@ public class PlayerController : MonoBehaviour{
     private void MoveBack() {
         go_interactCollider.SetActive(false);
         go_interactCollider.transform.localPosition = new Vector3(go_interactCollider.transform.localPosition.x, transform.position.y, go_interactCollider.transform.localPosition.z);
-    }
-
-    private void TeleportPlayer() {
-        transform.position = transform.position + (int)e_Side * Constants.RiftStats.C_RiftTeleportOffset;
-        go_deathOrbPrefab.gameObject.SetActive(false);
-        gameObject.SetActive(true);
+        
     }
 
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Rift") {
             DropFlag();
-			TakeDamage(f_playerHealth,Constants.Global.DamageType.RIFT);
+			TakeDamage(f_playerHealth);
             while (!isWisp) {
                 Debug.Log("I'm waiting for the player to be a wisp, because then they will have dropped the flag and I can move them across the rift.");
             }
-
-            //moves the death orb assigned to the position they were swallowed to indicate they are in the Rift
-            go_deathOrbPrefab.transform.position = new Vector3(0.0f, transform.position.y, transform.position.z);
-            go_deathOrbPrefab.gameObject.SetActive(true);
-            gameObject.SetActive(false);
-            Invoke("TeleportPlayer", Constants.RiftStats.C_RiftTeleportDelay);
+			transform.position = transform.position + (int)e_Side * Constants.RiftStats.C_RiftTeleportOffset;
 		}
     }
 
@@ -454,8 +425,4 @@ public class PlayerController : MonoBehaviour{
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
         }
     }
-	
-	private void StepDelay(){
-		b_stepOk = true;
-	}
 }

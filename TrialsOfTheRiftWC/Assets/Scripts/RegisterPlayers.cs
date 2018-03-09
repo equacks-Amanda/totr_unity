@@ -16,8 +16,7 @@ public class RegisterPlayers : MonoBehaviour {
     [SerializeField] private Image go_hat1, go_hat2, go_hat3, go_hat4;
     [SerializeField] private Sprite img_red, img_blue;
     [SerializeField] private Sprite[] img_hats;
-    [SerializeField] private Text txt_p1Message, txt_p2Message, txt_p3Message, txt_p4Message;
-    [SerializeField] private GameObject go_go;
+    [SerializeField] private Text txt_p1Message, txt_p2Message, txt_p3Message, txt_p4Message, txt_go;
     private Player p_player1, p_player2, p_player3, p_player4;
     private bool b_p1Connected = false, b_p2Connected = false, b_p3Connected = false, b_p4Connected = false;	// set when 4 controllers are detected
     private bool b_p1Ready = false, b_p2Ready = false, b_p3Ready = false, b_p4Ready = false;
@@ -219,7 +218,7 @@ public class RegisterPlayers : MonoBehaviour {
 
 
         // confirm selection
-        if (p_player1.GetButtonDown("UISubmit") && !b_p1Ready)
+        if (p_player1.GetButton("UISubmit") && !b_p1Ready)
         {
             if (e_p1Color == Constants.Global.Color.RED && i_numRed < 2)
             {
@@ -234,7 +233,7 @@ public class RegisterPlayers : MonoBehaviour {
                 b_p1Ready = true;
             }
         }
-        if (p_player2.GetButtonDown("UISubmit") && !b_p2Ready)
+        if (p_player2.GetButton("UISubmit") && !b_p2Ready)
         {
             if (e_p2Color == Constants.Global.Color.RED && i_numRed < 2)
             {
@@ -249,7 +248,7 @@ public class RegisterPlayers : MonoBehaviour {
                 b_p2Ready = true;
             }
         }
-        if (p_player3.GetButtonDown("UISubmit") && !b_p3Ready)
+        if (p_player3.GetButton("UISubmit") && !b_p3Ready)
         {
             if (e_p3Color == Constants.Global.Color.RED && i_numRed < 2)
             {
@@ -264,7 +263,7 @@ public class RegisterPlayers : MonoBehaviour {
                 b_p3Ready = true;
             }
         }
-        if (p_player4.GetButtonDown("UISubmit") && !b_p4Ready)
+        if (p_player4.GetButton("UISubmit") && !b_p4Ready)
         {
             if (e_p4Color == Constants.Global.Color.RED && i_numRed < 2)
             {
@@ -282,7 +281,7 @@ public class RegisterPlayers : MonoBehaviour {
         
 
         // reset selection
-        if (p_player1.GetButtonDown("UICancel") && b_p1Ready)
+        if (p_player1.GetButton("UICancel") && b_p1Ready)
         {
             // reduce color number
             if (e_p1Color == Constants.Global.Color.RED)
@@ -296,7 +295,7 @@ public class RegisterPlayers : MonoBehaviour {
             txt_p1Message.text = "CONNECTED!";
             b_p1Ready = false;
         }
-        if (p_player2.GetButtonDown("UICancel") && b_p2Ready)
+        if (p_player2.GetButton("UICancel") && b_p2Ready)
         {
             // reduce color number
             if (e_p2Color == Constants.Global.Color.RED)
@@ -310,7 +309,7 @@ public class RegisterPlayers : MonoBehaviour {
             txt_p2Message.text = "CONNECTED!";
             b_p2Ready = false;
         }
-        if (p_player3.GetButtonDown("UICancel") && b_p3Ready)
+        if (p_player3.GetButton("UICancel") && b_p3Ready)
         {
             // reduce color number
             if (e_p3Color == Constants.Global.Color.RED)
@@ -324,7 +323,7 @@ public class RegisterPlayers : MonoBehaviour {
             txt_p3Message.text = "CONNECTED!";
             b_p3Ready = false;
         }
-        if (p_player4.GetButtonDown("UICancel") && b_p4Ready)
+        if (p_player4.GetButton("UICancel") && b_p4Ready)
         {
             // reduce color number
             if (e_p4Color == Constants.Global.Color.RED)
@@ -343,7 +342,7 @@ public class RegisterPlayers : MonoBehaviour {
         // load next scene
         if (b_p1Ready && b_p2Ready && b_p3Ready && b_p4Ready)
         {
-            go_go.SetActive(true);
+            txt_go.text = "LET'S GO!";
             if (p_player1.GetButtonDown("MenuUISubmit"))
             {
                 // set constants color, hat for all 4 players
@@ -361,7 +360,7 @@ public class RegisterPlayers : MonoBehaviour {
         }
         else
         {
-            go_go.SetActive(false);
+            txt_go.text = "";
         }
     }
 }

@@ -21,7 +21,6 @@ public sealed class DarkMagician : MonoBehaviour {
     [SerializeField] private GameObject go_paraButton;
 	private bool b_gameOver;
     private RiftController riftController;     // reference to Rift singleton
-	protected Maestro maestro;
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -45,7 +44,7 @@ public sealed class DarkMagician : MonoBehaviour {
 			txt_winMsg.text = c + " team won!";
 			return;
 		}
-		maestro.PlayAnnouncementTrialTransition();
+
         riftController.IncreaseVolatility(Constants.RiftStats.C_VolatilityIncrease_RoomAdvance);
         objectiveNumber++;
 
@@ -74,16 +73,12 @@ public sealed class DarkMagician : MonoBehaviour {
 
     void Start() {
         riftController = RiftController.Instance;
-		maestro = Maestro.Instance;
     }
 
     void Update() {
         // Dev shortcut TODO: remove in release
         if (Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();
-        }
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            GetNextObjective(objv_currentRedObjective.Color, objv_currentRedObjective.NumberInList);
         }
 
         // check for completion of objectives

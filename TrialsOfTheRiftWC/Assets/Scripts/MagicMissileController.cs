@@ -7,17 +7,16 @@ public class MagicMissileController : SpellController {
     bool i_reflect = false;
 
     private void OnDestroy() {
-        ParticleSystem ps_particle = Instantiate(ps_onDestroyParticles, gameObject.transform.position, Quaternion.identity);
-        ps_particle.GetComponent<ParticleSystemController>().enabled = true;
+        Instantiate(ps_onDestroyParticles, gameObject.transform.position, Quaternion.identity);
     }
 
     protected override void ApplyEffect(GameObject go_target, Collision collision) {
         if (go_target.tag == "Player") {
             if (go_target.GetComponent<PlayerController>().GetColor() != this.e_color)
             {
-                go_target.GetComponent<PlayerController>().TakeDamage(Constants.SpellStats.C_MagicMissileDamage * f_charged,Constants.Global.DamageType.MAGICMISSILE);
+                go_target.GetComponent<PlayerController>().TakeDamage(Constants.SpellStats.C_MagicMissileDamage * f_charged);
                 go_target.GetComponent<PlayerController>().DropFlag();
-				go_target.GetComponent<PlayerController> ().Animator.SetTrigger ("hitTrigger");
+				go_target.GetComponent<PlayerController> ().animator.SetTrigger ("hitTrigger");
             }
             else {
                 go_target.GetComponent<PlayerController>().Heal(Constants.SpellStats.C_MagicMissileHeal * f_charged);
