@@ -17,6 +17,7 @@ public class RiftBossController : MonoBehaviour {
     private Constants.Global.Color e_color;     // identifies owning team
     private float f_health;    // indicates how much health the boss has
     private RiftController rc_riftController;
+	public Animator animator;
 
     // Getters
     public Constants.Global.Color Color {
@@ -46,6 +47,8 @@ public class RiftBossController : MonoBehaviour {
             Constants.ObjectiveStats.C_DeathBoltCooldown + Constants.ObjectiveStats.C_ForceFieldCooldown);
 
         InvokeRepeating("SpawnRunes", Constants.ObjectiveStats.C_RuneSpawnInterval, Constants.ObjectiveStats.C_RuneSpawnInterval);
+
+		animator = GetComponentInChildren <Animator> ();
     }
 
     /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -55,6 +58,7 @@ public class RiftBossController : MonoBehaviour {
         foreach (GameObject runes in go_runes) {
             if (!runes.activeSelf) {
                 runes.SetActive(true);
+				animator.SetTrigger ("runeTrigger");
             }
             else {
                 runes.SetActive(false);
@@ -65,6 +69,7 @@ public class RiftBossController : MonoBehaviour {
     private void FireDeathBolts() {
         rc_riftController.FireDeathBolts(e_color);
         go_ForceField.SetActive(false);
+		animator.SetTrigger ("deathboltTrigger");
         Invoke("TurnOnForceField", Constants.ObjectiveStats.C_ForceFieldCooldown);
     }
 
