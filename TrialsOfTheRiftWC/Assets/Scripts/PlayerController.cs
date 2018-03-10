@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour{
         float f_inputX = p_player.GetAxis("MoveHorizontal");
         float f_inputZ = p_player.GetAxis("MoveVertical");
         float f_aimInputX = p_player.GetAxis("AimHorizontal");
-        float f_aimInputZ = p_player.GetAxis("AimVertical");
+		float f_aimInputZ = p_player.GetAxis("AimVertical");
 		//float f_lookDirection;
 
         Vector3 v3_moveDir = new Vector3(f_inputX, 0, f_inputZ).normalized;
@@ -71,6 +71,11 @@ public class PlayerController : MonoBehaviour{
 
 		anim.SetFloat ("runSpeed", v3_moveDir.magnitude);
 		anim.SetFloat ("lookDirection", v3_aimDir.magnitude);
+
+		anim.SetFloat ("runspeedX",f_inputX);
+		anim.SetFloat ("runspeedZ",f_inputZ);
+		anim.SetFloat ("aimdirectionX",f_aimInputX);
+		anim.SetFloat ("aimdirectionZ",f_aimInputZ);
 
 
 		if (v3_aimDir.magnitude > 0) {
@@ -110,6 +115,8 @@ public class PlayerController : MonoBehaviour{
             flag.transform.SetParent(t_flagPos);
             flag.transform.localPosition = new Vector3(0, 0, 0);
             go_flagObj = flag;
+			anim.SetTrigger ("flagTrigger");
+			anim.SetBool ("hasFlag", true);
         }
 	}
 
@@ -122,6 +129,7 @@ public class PlayerController : MonoBehaviour{
 
             go_flagObj.GetComponent<FlagController>().DropFlag();
 			go_flagObj = null;
+			anim.SetBool ("hasFlag", false);
 		}
 	}
 
@@ -274,7 +282,8 @@ public class PlayerController : MonoBehaviour{
 
         // spells
         if (p_player.GetButtonUp("IceSpell")) {
-            b_iceboltMode = false;
+			anim.SetBool ("icespellBool" , false);
+			b_iceboltMode = false;
             Destroy(go_icebolt);
         }
 		
@@ -342,6 +351,7 @@ public class PlayerController : MonoBehaviour{
             // Ice Spell
             if (f_nextIce > Constants.SpellStats.C_IceCooldown && f_nextCast > Constants.SpellStats.C_NextSpellDelay) {   // checks for fire button and if time delay has passed
                 if (p_player.GetButtonDown("IceSpell")) {
+					anim.SetBool ("icespellBool" , true);
 					maestro.PlayIceShoot();
                     b_iceboltMode = true;
                     f_nextIce = 0;

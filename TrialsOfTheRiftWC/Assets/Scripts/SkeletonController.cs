@@ -11,6 +11,7 @@ using UnityEngine.AI;
 public class SkeletonController : EnemyController {
 	
 	private GameObject go_closestTarget;
+	private Animator animator;
 
 	public override void Init(Constants.Global.Side side) {
 		base.Init(side);
@@ -21,6 +22,7 @@ public class SkeletonController : EnemyController {
     protected override void UpdateChase() {
 
 		base.UpdateChase();
+		GetComponent<Animator>().SetBool("isRunning", true);
 		go_closestTarget = null;
 		float f_minDistance = 9999f;
 		float f_currentDistance;
@@ -41,6 +43,7 @@ public class SkeletonController : EnemyController {
 		}
 		else{
 			EnterStateWander();
+			GetComponent<Animator>().SetBool("isRunning", false);
 			//nma_agent.isStopped = true;
 		}
 			
@@ -92,9 +95,11 @@ public class SkeletonController : EnemyController {
 
 		if (b_playersAvailable) {
 			EnterStateChase();
+			GetComponent<Animator>().SetBool("isRunning", true);
 		}
 		else {
 			 Wander();
+			GetComponent<Animator>().SetBool("isRunning", false);
 		}
 	}
 
@@ -126,5 +131,6 @@ public class SkeletonController : EnemyController {
 		if(Vector3.Distance(transform.position,go_closestTarget.transform.position) < Constants.EnemyStats.C_EnemyAttackRange)
 				EnterStateAttack();
 	}
+		
 
 }
